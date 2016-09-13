@@ -4,7 +4,7 @@ The caverns of shadow land have been infected by the Glitch, an other world viru
 
 This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for this year was "Glitch".
 
-**Final Size:** TODO
+**Final Size:** 10777 bytes
 
 #Controls#
 **Move:** A is left, D is right.  
@@ -24,4 +24,4 @@ Best played in Chrome, on a reasonably fast computer, with a semi-decent graphic
 
 #Screenshots#
 
-TODO:
+![You've Been Glitched Gameplay](https://sites.google.com/site/shadowballjs/files/glitched.png "You've Been Glitched  Gameplay")
