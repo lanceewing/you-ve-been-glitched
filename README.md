@@ -1,6 +1,6 @@
 #You've Been Glitched#
 
-The caverns of shadow land have been infected by the Glitch, an other world virus that affects the very fabric of space time itself. The world around you distorts as it grows at a frightening rate through the caverns, pulsing with an energy that warps gravity. Only you have the power to restore stability to the affected areas, but do it fast! ...as if it is given too much time to grow, it will be unstoppable in its advance.
+The caverns of shadow land have been infected by the Glitch, an alien virus that affects the very fabric of space time itself. The world around you distorts as it grows at a frightening rate through the caverns, pulsing with an energy that warps gravity. Only you have the power to restore stability to the affected areas, but do it fast! ...as if it is given too much time to grow, it will be unstoppable in its advance.
 
 This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for this year was "Glitch".
 
