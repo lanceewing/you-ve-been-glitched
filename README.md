@@ -14,7 +14,7 @@ This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for 
 **Pause:** P  
 
 #Notes#
-Best played in Chrome, on a reasonably fast computer, with a semi-decent graphics card.
+Tested on Chrome, Firefox, and Internet Explorer. Might require a reasonably fast computer, with a semi-decent graphics card, although it has been working fine in a VirtualBox VM. I've noticed that Chrome running on my laptop really struggled with the rotation, but Firefox and Internet Explorer on the same device worked perfectly. So my advice would be to check the graphics acceleration settings in Chrome if there are performance issues there.
 
 #Credits#
 **Created By:** Lance Ewing  
