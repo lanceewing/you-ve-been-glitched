@@ -13,8 +13,12 @@ This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for 
 **Fire:** Mouse button  
 **Pause:** P  
 
-#Notes#
-Tested on Chrome, Firefox, and Internet Explorer. Might require a reasonably fast computer, with a semi-decent graphics card, although it has been working fine in a VirtualBox VM. I've noticed that Chrome running on my laptop really struggled with the rotation, but Firefox and Internet Explorer on the same device worked perfectly. So my advice would be to check the graphics acceleration settings in Chrome if there are performance issues there.
+#Compatibility Notes#
+The game was developed using Chrome 50 on Linux, on which the rotation runs smoothly at full speed and everything works perfectly. So for Linux users, I would recommend Chrome, although it also works fine on Firefox on Linux.
+
+For Windows, I would recommend Firefox. This is due to Chrome appearing to have a performance issue with canvas rotation that neither Firefox nor Internet Explorer suffer from on Windows. Everything works perfectly on Firefox under Windows, and I'd also suggest giving it a go in Internet Explorer 10 or above. The graphics were surprisingly smooth there as well, perhaps even better than Firefox, although the sound appears not to work in Internet Explorer.
+
+It might require a reasonably fast computer with a semi-decent graphics card as well, regardless of the OS.
 
 #Credits#
 **Created By:** Lance Ewing  
