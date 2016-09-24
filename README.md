@@ -2,7 +2,9 @@
 
 Play the latest version here: http://youve-been-glitched.appspot.com/
 
-The caverns of shadow land have been infected by the Glitch, an alien virus that affects the very fabric of space time itself. The world around you distorts as it grows at a frightening rate through the caverns, pulsing with an energy that warps gravity. Only you have the power to restore stability to the affected areas, but do it fast! ...as if it is given too much time to grow, it will be unstoppable in its advance.
+"The caverns of shadow land have been infected by the Glitch, an alien virus that affects the very fabric of space time itself. The world around you distorts as it grows at a frightening rate through the caverns, pulsing with an energy that warps gravity. Only you have the power to restore stability to the affected areas, but do it fast! ...as if it is given too much time to grow, it will be unstoppable in its advance".
+
+The aim of the game is to destroy all of the enemies, i.e. the Glitches, in as quick a time as possible. By juding the timing of the rotation, you can be in the right place at the right time to drop in to the next cavern, or leap up on to the next ledge. If you move through them quick enough, you can destroy all the glitches before they spread out of control.
 
 This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for this year was "Glitch".
 
