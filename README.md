@@ -1,6 +1,6 @@
 #You've Been Glitched#
 
-Play the latest version here: http://youve-been-glitched.appspot.com/
+Play the latest version here: http://youve-been-glitched.appspot.com/. 1m37s is the current time to beat.
 
 "The caverns of shadow land have been infected by the Glitch, an alien virus that affects the very fabric of space time itself. The world around you distorts as it grows at a frightening rate through the caverns, pulsing with an energy that warps gravity. Only you have the power to restore stability to the affected areas, but do it fast! ...as if it is given too much time to grow, it will be unstoppable in its advance".
 
