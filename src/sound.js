@@ -11,18 +11,28 @@ $.Sound = {
   /**
    * Stores the sounds, keyed by the sound name.
    */
-  sounds: {}, 
+  sounds: {},
+  
+  /**
+   * Whether the sound module is active in the current browser.
+   */
+  active: false,
   
   /**
    * Initialised all of the sound effects and the background music.
    */
   init: function() {
-    this.add('music', 1, this.song);
-    this.add('bomb', 10, [2,,0.2,0.81,0.09,0.6609,,-0.2901,-0.64,,,,,0.072,0.191,,-0.38,-0.02,1,,,0.1841,,0.5]);
-    this.add('hit', 10, [3,,0.1283,0.6002,0.4009,0.06,,,,,,,,,,,-0.0393,-0.2507,1,,,,,0.5]);
-    this.add('explosion', 10, [3,,0.3453,0.6998,0.2278,0.08,,-0.0553,,,,-0.2784,0.6294,,,,,,1,,,,,0.52]);
-    this.add('count', 1, [2,,0.1707,,0.0644,0.5146,,,,,,,,,,,,,1,,,0.1,,0.5]);
-    this.add('kill', 10, [3,,0.1527,0.6742,0.3473,0.018,,0.0425,,,,,,,,,0.2314,-0.0231,1,,,,,0.5]);
+    // The sound module only seems to work in Chrome and Firefox.
+    this.active = (!(navigator.userAgent.match(/Opera|OPR\//)));
+    
+    if (this.active) {
+      this.add('music', 1, this.song);
+      this.add('bomb', 10, [2,,0.2,0.81,0.09,0.6609,,-0.2901,-0.64,,,,,0.072,0.191,,-0.38,-0.02,1,,,0.1841,,0.5]);
+      this.add('hit', 10, [3,,0.1283,0.6002,0.4009,0.06,,,,,,,,,,,-0.0393,-0.2507,1,,,,,0.5]);
+      this.add('explosion', 10, [3,,0.3453,0.6998,0.2278,0.08,,-0.0553,,,,-0.2784,0.6294,,,,,,1,,,,,0.52]);
+      this.add('count', 1, [2,,0.1707,,0.0644,0.5146,,,,,,,,,,,,,1,,,0.1,,0.5]);
+      this.add('kill', 10, [3,,0.1527,0.6742,0.3473,0.018,,0.0425,,,,,,,,,0.2314,-0.0231,1,,,,,0.5]);
+    }
     
     // Hit:
     // 0,,0.0243,,0.1556,0.4446,,-0.6015,,,,,,0.2088,,,,,1,,,,,0.48
@@ -122,9 +132,11 @@ $.Sound = {
    * @param {string} name The name of the sound to play.
    */
   play: function(name) {
-    var sound = this.sounds[name];
-    sound.pool[sound.tick].play();
-    sound.tick < sound.count - 1 ? sound.tick++ : sound.tick = 0;
+    if (this.active) {
+      var sound = this.sounds[name];
+      sound.pool[sound.tick].play();
+      sound.tick < sound.count - 1 ? sound.tick++ : sound.tick = 0;
+    }
   },
   
   /**
@@ -136,9 +148,11 @@ $.Sound = {
    * @param {string} name The name of the sound to pause.
    */
   pause: function(name) {
-    var audio = this.sounds[name].pool[0];
-    audio.pause();
-    audio.currentTime = 0;
+    if (this.active) {
+      var audio = this.sounds[name].pool[0];
+      audio.pause();
+      audio.currentTime = 0;
+    }
   },
   
   /**
