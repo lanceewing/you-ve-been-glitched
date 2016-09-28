@@ -27,7 +27,7 @@ $.Util.fillCircle = function(ctx, x, y, d, colour) {
   var r = d / 2;
   ctx.fillStyle = colour;
   ctx.beginPath();
-  ctx.arc(x, y, r, 0, 2 * Math.PI);
+  ctx.arc(x + r, y + r, r, 0, 2 * Math.PI);
   ctx.closePath();
   ctx.fill();
 };
@@ -55,7 +55,7 @@ $.Util.create2dContext = function(w, h) {
  * @param {number} texture
  * @param {string} eye
  */
-$.Util.renderSphere = function(size, direction, colour, texture, eye) {
+$.Util.renderSphere = function(size, direction, colour, texture, eye, sclera) {
   var ctx = $.Util.create2dContext(size, size);
   
   // Draw the sphere itself. The colour determines the base colour of the
@@ -72,7 +72,7 @@ $.Util.renderSphere = function(size, direction, colour, texture, eye) {
   // pixel in the drawn sphere. The texture value is either multiplied with
   // the rgb components, or it the rgb components are divided by it. This
   // adjusts the brightness of the colour and creates a textured or speckled
-  // look, as seen with the Rock, Enemy and Ego.
+  // look.
   if (texture) {
     var imgData = ctx.getImageData(0, 0, size, size);
     for (var i=0; i<imgData.data.length; i+=4) {
@@ -93,7 +93,7 @@ $.Util.renderSphere = function(size, direction, colour, texture, eye) {
   
   // Draw left eye.
   if ((direction == 4) || (direction == 1)) {
-    ctx.fillStyle="white";
+    ctx.fillStyle=(sclera || "orange");
     $.Util.fillCircle(ctx, 8 * eyeFactor, 12 * eyeFactor, 13 * eyeFactor);
     ctx.fillStyle=(eye || colour);
     $.Util.fillCircle(ctx, 10 * eyeFactor, 14 * eyeFactor, 9 * eyeFactor);
@@ -101,7 +101,7 @@ $.Util.renderSphere = function(size, direction, colour, texture, eye) {
   
   // Draw right eye.
   if ((direction == 4) || (direction == 2)) {
-    ctx.fillStyle="white";
+    ctx.fillStyle=(sclera || "orange");
     $.Util.fillCircle(ctx, 29 * eyeFactor, 12 * eyeFactor, 13 * eyeFactor);
     ctx.fillStyle=(eye || colour);
     $.Util.fillCircle(ctx, 31 * eyeFactor, 14 * eyeFactor, 9 * eyeFactor);
