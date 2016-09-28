@@ -58,7 +58,22 @@ $.Game = {
   rotateTimer: 0,
   
   /**
-   * Current angle of rotation of the screen. Can have one of four values.
+   * The start time in milliseconds of the current rotation.
+   */
+  rotateStartTime: 0,
+  
+  /**
+   * The angle at which the rotation started.
+   */
+  rotateStartAngle: 0,
+  
+  /**
+   * Whether or not the screen is currently rotating.
+   */
+  rotating: false,
+  
+  /**
+   * Current angle of rotation of the screen.
    */
   rotateAngle: 0,
   
@@ -171,6 +186,8 @@ $.Game = {
       $.Game.hasFocus = true;
     });
     
+    this.renderFavicon();
+    
     // Draw the colourful rainbow gradient background.
     var grd = $.bgCtx.createLinearGradient(0, 0, 0, $.background.height);
     grd.addColorStop(0, 'red');
@@ -206,7 +223,9 @@ $.Game = {
       $.Game.init(false);
       $.Sound.play('music');
       $.Game.loop();
-          
+      
+      $.Game.fadeIn($.wrapper);
+      
       // Re-enable keyboard input after a short delay.
       setTimeout(function() {
         $.Game.showText(2, 'Press SPACE to start');
@@ -226,11 +245,15 @@ $.Game = {
     this.time = 0;
     this.rotateTimer = $.Constants.ROTATE_INTERVAL;
     this.rotateAngle = 0;
+    this.rotateStartTime = 0;
+    this.rotateStartAngle = 0;
+    this.rotating = false;
+    
     this.health = 9;
     this.bullets = [];
     
     // Load the current low time from local storage (equivalent to hi score).
-    this.lowTime = (localStorage.getItem('lowTime') || 3599000);
+    this.lowTime = (localStorage? localStorage.getItem('lowTime') || 3599000 : 3599000);
     this.lowTimeStr = this.buildTimeString(this.lowTime);
     
     // Clear the enemies
@@ -243,6 +266,9 @@ $.Game = {
     // this flag is false.
     this.running = running;
     this.starting = true;
+    
+    // Clear any pre-existing rotate class.
+    $.screen.className = '';
   },
   
   /**
@@ -251,6 +277,7 @@ $.Game = {
   enableKeys: function() {
     document.addEventListener('keydown', this.keydown, false);
     document.addEventListener('keyup', this.keyup, false);
+    $.screen.focus();
   },
   
   /**
@@ -342,6 +369,7 @@ $.Game = {
               if ($.Game.starting) {
                 $.Game.time = 0;
                 $.Game.starting = false;
+                $.Game.running = true;
               }
             }, 500);
           }
@@ -359,17 +387,17 @@ $.Game = {
           
           // Start the countdown in 1 second. Gives the previous messages time to fade.
           setTimeout(function() {
-            if (!$.Game.running) $.Game.init(true);
+            if (!$.Game.running) $.Game.init(false);
             $.Game.countdown = 3000;
             $.Game.showText(2, 'Get ready', true, 2500);
           }, 1000);
           $.Sound.play('music');
-        } else {
-          if ($.Game.starting) {
-            this.updateObjects();
-          }
         }
       }
+      if ($.Game.starting) {
+        this.updateObjects();
+      }
+      
     } else {
       // In paused state and does not have focus.
       this.countdown = 0;
@@ -404,7 +432,9 @@ $.Game = {
     }
     
     // Store the low time (aka. hi score) in local storage for next time.
-    localStorage.setItem('lowTime', this.lowTime);
+    if (localStorage) {
+      localStorage.setItem('lowTime', this.lowTime);
+    }
     
     // Pause the game and tell the player it is all over.
     this.paused = true;
@@ -553,7 +583,7 @@ $.Game = {
    */
   updateObjects: function() {
     var enemy, bullet, block;
-      
+    
     // Update ego (the player).
     if ($.Game.running) {
       $.ego.update();
@@ -597,11 +627,20 @@ $.Game = {
       
     // Update the rotation timer. Rotate by 90 degrees every ROTATE_INTERVAL.
     if (this.rotateTimer <= 0) {
-      this.rotateAngle = ((this.rotateAngle + 1) % 360);
-      if (this.rotateAngle % 90 == 0) {
+      if (!this.rotating) {
+        $.screen.className = 'rotateTo' + ((this.rotateAngle + 90) % 360);
+        this.rotateStartTime = this.time;
+        this.rotateStartAngle = ~~this.rotateAngle;
+        this.rotating = true;
+      }
+      var rotatePercentage = (this.time - this.rotateStartTime)/2000;
+      this.rotateAngle = ~~(this.rotateStartAngle + (90 * rotatePercentage));
+      if ((this.rotateAngle - this.rotateStartAngle) > 90) {
+        this.rotateAngle = ((~~(this.rotateAngle / 90)) * 90) % 360;
         $.ego.playerAngle = this.rotateAngle;
         this.rotateTimer = $.Constants.ROTATE_INTERVAL;
         $.ego.direction = $.ego.playerAngle / 90;
+        this.rotating = false;
       }
     } else {
       this.rotateTimer--;
@@ -641,20 +680,29 @@ $.Game = {
   },
   
   /**
+   * Renders the favicon. It does this by rendering Ego facing forward and then resizes this
+   * to fit within the favicon size and then updates the href of the favicon with the 
+   * data url of the generate canvas.
+   */
+  renderFavicon: function() {
+    var favicon = document.getElementById('favicon');
+    var ctx = $.Util.create2dContext(16, 16);
+    ctx.drawImage($.Util.renderSphere(50, 4, 'rgb(197,179,88)', 1, 'black', 'white'), 0, 0, 16, 16);
+    favicon.href = ctx.canvas.toDataURL();
+  },
+  
+  /**
    * Draws everything in the Game that needs to be drawn for the current frame.
    */
   draw: function() {
     // Start by clearing the whole screen canvas.
-    $.sctx.fillStyle = '#ffffff';
-    $.sctx.clearRect(0, 0, $.Constants.SCREEN_WIDTH, $.Constants.SCREEN_HEIGHT);
+    $.sctx.fillStyle = 'rgba(0,0,0,0.0)';
+    $.sctx.clearRect(0, 0, 1000, 1000);
 
     $.sctx.save();
-    $.sctx.transform(1, 0, 0, 1, 0, 0);
 
     // Translating to the middle of the window allows it to rotate around the middle.
     $.sctx.translate(~~($.Constants.SCREEN_WIDTH / 2), ~~($.Constants.SCREEN_HEIGHT / 2));
-
-    $.sctx.rotate(-((this.rotateAngle % 360) * Math.PI / 180));
 
     $.sctx.save();
 
@@ -662,16 +710,8 @@ $.Game = {
     // sizes. This allows us to then use this diagonal as the width of the rendered portion
     // of the background, which is the minimum size we need to support a clean rotation (i.e.
     // with no white bits showing).
-    var size = Math.max($.Constants.SCREEN_HEIGHT, $.Constants.SCREEN_WIDTH);
-    var diag = ~~(Math.sqrt(2 * (size * size)));
-
-    $.sctx.drawImage($.background,
-        // The checks on xPos & yPos are what enables the wrap around of the map and the smooth transitions between wrap edges.
-        ($.ego.x > ($.Constants.ROOM_X_PIXELS/2) ? $.ego.x : $.ego.x + $.Constants.ROOM_X_PIXELS) - (diag / 2), 
-        ($.ego.y > ($.Constants.ROOM_Y_PIXELS/2) ? $.ego.y : $.ego.y + $.Constants.ROOM_Y_PIXELS) - (diag / 2), 
-        diag, diag,
-        // Destination.
-        -(diag / 2), -(diag / 2), diag, diag);
+    //var size = Math.max($.Constants.SCREEN_HEIGHT, $.Constants.SCREEN_WIDTH);
+    var diag = 1000; //~~(Math.sqrt(2 * (size * size)));
     
     // Movement in different directions is controlled solely through a translation on this drawImage call.
     $.sctx.drawImage($.Map.getCanvas(),
@@ -688,7 +728,10 @@ $.Game = {
     $.sctx.save();
 
     if ($.Game.running) {
+      $.sctx.save();
+      $.sctx.rotate(((this.rotateAngle) * Math.PI / 180));
       $.ego.draw();
+      $.sctx.restore();
     }
     
     // Updates and then renders the bullets.
