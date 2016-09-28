@@ -46,21 +46,11 @@ $.Bullet.prototype.move = function() {
  * Draws the bullet using its previous positions to create a streaking comet effect.
  */
 $.Bullet.prototype.draw = function(ctx, offsetX, offsetY) {
-  ctx.shadowColor   = 'rgba(255, 255, 200, 1)';
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-  ctx.shadowBlur    = 10;
-  
-  for (var i=0; i<(this.step*5); i++) {
+  for (var i=0; i<(this.step*5); i+=2) {
     var tempX = this.positions[0].x + Math.cos(this.heading) * Math.round(i);
     var tempY = this.positions[0].y + Math.sin(this.heading) * Math.round(i);
     $.Util.fillCircle(ctx, tempX - offsetX, tempY - offsetY, 5 * i/(this.step*5),  'rgba(0,0,0,' + (0.3 * (i/(this.step*5))) + ')');
   }
-  
-  ctx.shadowColor = 'rgba(0,0,0,0)';
-  ctx.shadowBlur = 0;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
   
   // Remember the last 5 draw positions. May or may not need them :-)
   this.positions.push({x: this.x, y: this.y});
