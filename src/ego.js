@@ -7,7 +7,7 @@
  */
 $.Ego = function() {
   this.reset();
-  this.size = 50;
+  this.size = $.Constants.CELL_WIDTH - 1;
   this.texture = 0.95;
   this.canvas = this.buildCanvas();
 };
@@ -24,6 +24,7 @@ $.Ego.prototype.reset = function() {
   this.upDownVelocity = 0.0;
   this.fallingBlocked = false;
   this.direction = 0;
+  this.facing = 3;
   this.playerAngle = 0;
   this.jumpHeight = 54;
   this.powerUp(694);
@@ -36,9 +37,9 @@ $.Ego.prototype.buildCanvas = function() {
   // Create a single canvas to render the sprite sheet for the four directions.
   var ctx = $.Util.create2dContext(this.size * 4, this.size);
   
-  // For each direction, render the Actor facing in that direction.
-  for (var d = 0; d < 4; d++) {
-    ctx.drawImage($.Util.renderSphere(this.size, d + 1, 'rgb(197,179,88)', this.texture, 'black'), d * this.size, 0);
+  for (var f = 0; f < 4; f++) {
+    //ctx.drawImage($.Util.renderSphere(this.size, f + 1, 'rgb(197,179,88)', this.texture, 'black'), f * this.size, 0);
+    ctx.drawImage($.Util.renderSphere(this.size, f + 1, 'rgb(0,0,0)', this.texture, 'black'), f * this.size, 0);
   }
   
   return ctx.canvas;
@@ -80,8 +81,11 @@ $.Ego.prototype.powerUp = function(amount) {
  * Draws the main player.
  */
 $.Ego.prototype.draw = function() {
-  var diam = $.Constants.CELL_WIDTH - 1; //2;
-  $.Util.fillCircle($.sctx, 0, 0, diam, '#000000');
+  //var diam = $.Constants.CELL_WIDTH - 1; //2;
+  //$.Util.fillCircle($.sctx, 0, 0, diam, '#000000');
+  $.sctx.drawImage(this.canvas, 
+      (this.size * this.facing), 0, this.size, this.size,
+      -(this.size/2), -(this.size/2), this.size, this.size);
 };
 
 /**
@@ -103,12 +107,12 @@ $.Ego.prototype.update = function() {
   if ($.Game.mouseButton) {
     $.Game.mouseButton = 0;
     
-    // Player can only fire three bullets at once.
-    for (var bulletNum = 0; bulletNum < 3; bulletNum++) {
+    // Player can only 5 three bullets at once.
+    for (var bulletNum = 0; bulletNum < 5; bulletNum++) {
       if ($.Game.bullets[bulletNum] == null) {
         // The player is always in the middle of the window, so we calculate the heading from that point.
-        var playerScreenX = ~~($.Constants.SCREEN_WIDTH / 2);
-        var playerScreenY = ~~($.Constants.SCREEN_HEIGHT / 2);
+        var playerScreenX = (~~($.Constants.WRAP_WIDTH / 2));
+        var playerScreenY = (~~($.Constants.WRAP_HEIGHT / 2));
         var bulletHeading = Math.atan2(playerScreenY - $.Game.yMouse, playerScreenX - $.Game.xMouse) + ((($.Game.rotateAngle + 180) % 360) * Math.PI / 180);
         $.Game.bullets[bulletNum] = new $.Bullet(this.x, this.y, bulletHeading);
         $.Sound.play('bomb');
@@ -140,8 +144,8 @@ $.Ego.prototype.update = function() {
   var velocities = [ this.leftRightVelocity, -this.upDownVelocity, -this.leftRightVelocity, this.upDownVelocity ];
 
   // Attempt to move.
-  var newXPos = this.x + velocities[this.direction];
-  var newYPos = this.y + velocities[(this.direction + 3) % 4];
+  var newXPos = this.x + (velocities[this.direction] * $.Game.stepFactor);
+  var newYPos = this.y + (velocities[(this.direction + 3) % 4] * $.Game.stepFactor);
 
   // General block check.
   var bottomRightBlock = $.Map.getBlockAt(newXPos + $.Constants.BLOCK_SIZE, newYPos + $.Constants.BLOCK_SIZE);
@@ -236,5 +240,13 @@ $.Ego.prototype.update = function() {
     // If so, reduce health and play hit noise.
     this.powerUp(-5);
     $.Sound.play('hit');
+  }
+  
+  if (this.leftRightVelocity < 0) {
+    this.facing = 0;
+  } else if (this.leftRightVelocity > 0) {
+    this.facing = 1;
+  } else {
+    this.facing = 3;
   }
 };
