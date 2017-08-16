@@ -1,4 +1,4 @@
-#You've Been Glitched#
+# You've Been Glitched
 
 Play the latest version here: http://youve-been-glitched.appspot.com/. 1m37s is the current time to beat.
 
@@ -10,7 +10,7 @@ This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for 
 
 **Final Size:** 10777 bytes
 
-#Controls#
+# Controls
 **Move:** A is left, D is right.  
 **Jump:** Space  
 **Aim:** Mouse
@@ -24,12 +24,12 @@ For Windows, I would recommend Firefox. This is due to Chrome appearing to have 
 
 It might require a reasonably fast computer with a semi-decent graphics card as well, regardless of the OS.
 
-#Credits#
+# Credits
 **Created By:** Lance Ewing  
 **Original Music By:** Lance Ewing  
 **Sound Effect Library:** [JSFXR](https://github.com/mneubrand/jsfxr) by Markus Neubrand  
 **Music Synth Library:** [SoundBox] (http://sb.bitsnbites.eu/) by Marcus Geelnard  
 
-#Screenshots#
+# Screenshots
 
 ![You've Been Glitched Gameplay](https://sites.google.com/site/shadowballjs/files/glitched.png "You've Been Glitched  Gameplay")
