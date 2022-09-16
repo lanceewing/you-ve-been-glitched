@@ -6,7 +6,7 @@ Play the latest version here: http://youve-been-glitched.appspot.com/. 1m37s is 
 
 The aim of the game is to destroy all of the enemies, i.e. the Glitches, in as quick a time as possible. By juding the timing of the rotation, you can be in the right place at the right time to drop in to the next cavern, or leap up on to the next ledge. If you move through them quick enough, you can destroy all the glitches before they spread out of control.
 
-This is an an entry for [js13kGames](http://js13kgames.com) 2016. The theme for this year was "Glitch".
+This is an an entry for [js13kGames](https://js13kgames.com) 2016. The theme for this year was "Glitch".
 
 **Final Size:** 10777 bytes
 
@@ -28,7 +28,7 @@ It might require a reasonably fast computer with a semi-decent graphics card as 
 **Created By:** Lance Ewing  
 **Original Music By:** Lance Ewing  
 **Sound Effect Library:** [JSFXR](https://github.com/mneubrand/jsfxr) by Markus Neubrand  
-**Music Synth Library:** [SoundBox] (http://sb.bitsnbites.eu/) by Marcus Geelnard  
+**Music Synth Library:** [SoundBox] (https://sb.bitsnbites.eu/) by Marcus Geelnard  
 
 # Screenshots
 
