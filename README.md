@@ -13,8 +13,8 @@ This is an an entry for [js13kGames 2016](https://js13kgames.com/entries/2016). 
 # Controls
 **Move:** A is left, D is right.  
 **Jump:** Space  
-**Aim:** Mouse
-**Fire:** Mouse button  
+**Aim:** Mouse    
+**Fire:** Mouse button    
 **Pause:** P  
 
 # Compatibility Notes
