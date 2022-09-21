@@ -6,7 +6,7 @@ Play the latest version here: https://lanceewing.github.io/you-ve-been-glitched/
 
 The aim of the game is to destroy all of the enemies, i.e. the Glitches, in as quick a time as possible. By juding the timing of the rotation, you can be in the right place at the right time to drop in to the next cavern, or leap up on to the next ledge. If you move through them quick enough, you can destroy all the glitches before they spread out of control.
 
-This is an an entry for [js13kGames](https://js13kgames.com) 2016. The theme for this year was "Glitch".
+This is an an entry for [js13kGames 2016](https://js13kgames.com/entries/2016). The theme for this year was "Glitch".
 
 **Final Size:** 10777 bytes
 
