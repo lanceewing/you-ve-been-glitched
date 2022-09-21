@@ -24,12 +24,13 @@ For Windows, I would recommend Firefox. This is due to Chrome appearing to have 
 
 It might require a reasonably fast computer with a semi-decent graphics card as well, regardless of the OS.
 
+# Screenshots
+
+![](img/screenshot_1.jpg)           |  ![](img/screenshot_3.jpg)
+:-------------------------:|:-------------------------:
+
 # Credits
 **Created By:** Lance Ewing  
 **Original Music By:** Lance Ewing  
 **Sound Effect Library:** [JSFXR](https://github.com/mneubrand/jsfxr) by Markus Neubrand  
 **Music Synth Library:** [SoundBox] (https://sb.bitsnbites.eu/) by Marcus Geelnard  
-
-# Screenshots
-
-![You've Been Glitched Gameplay](https://sites.google.com/site/shadowballjs/files/glitched.png "You've Been Glitched  Gameplay")
